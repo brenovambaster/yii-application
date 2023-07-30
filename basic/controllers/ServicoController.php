@@ -2,16 +2,16 @@
 
 namespace app\controllers;
 
-use app\models\Pais;
-use app\models\PaisSearch;
+use app\models\Servico;
+use app\models\ServicoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * PaisController implements the CRUD actions for Pais model.
+ * ServicoController implements the CRUD actions for Servico model.
  */
-class PaisController extends Controller
+class ServicoController extends Controller
 {
     /**
      * @inheritDoc
@@ -32,60 +32,55 @@ class PaisController extends Controller
     }
 
     /**
-     * Lists all Pais models.
+     * Lists all Servico models.
      *
      * @return string
      */
     public function actionIndex()
     {
-        $searchModel = new PaisSearch();
+        $searchModel = new ServicoSearch();
         try {
-            //code...
             $dataProvider = $searchModel->search($this->request->queryParams);
-        } catch (\Throwable $th) {
+        } catch (\Exception $e) {
             return $this->render('../site/error', [
-                'name' => 'Error',
-                'desc' => 'Erro ao se conectar com o banco de dados',
-                'message' => $th->getMessage(),
+                'name' => 'Erro',
+                'message' => $e->getMessage(),
+                'desc' => 'Falha na conexão com o banco de dados',
             ]);
         }
-
-        $dataProvider->pagination = [
-            'pageSize' => 12,
-        ];
 
 
         return $this->render('index', [
             'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider
+            'dataProvider' => $dataProvider,
         ]);
     }
 
     /**
-     * Displays a single Pais model.
-     * @param string $codigo Codigo
+     * Displays a single Servico model.
+     * @param int $id ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($codigo)
+    public function actionView($id)
     {
         return $this->render('view', [
-            'model' => $this->findModel($codigo),
+            'model' => $this->findModel($id),
         ]);
     }
 
     /**
-     * Creates a new Pais model.
+     * Creates a new Servico model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new Pais();
+        $model = new Servico();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'codigo' => $model->codigo]);
+                return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
             $model->loadDefaultValues();
@@ -97,18 +92,18 @@ class PaisController extends Controller
     }
 
     /**
-     * Updates an existing Pais model.
+     * Updates an existing Servico model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param string $codigo Codigo
+     * @param int $id ID
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($codigo)
+    public function actionUpdate($id)
     {
-        $model = $this->findModel($codigo);
+        $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'codigo' => $model->codigo]);
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
@@ -117,29 +112,29 @@ class PaisController extends Controller
     }
 
     /**
-     * Deletes an existing Pais model.
+     * Deletes an existing Servico model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param string $codigo Codigo
+     * @param int $id ID
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($codigo)
+    public function actionDelete($id)
     {
-        $this->findModel($codigo)->delete();
+        $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the Pais model based on its primary key value.
+     * Finds the Servico model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param string $codigo Codigo
-     * @return Pais the loaded model
+     * @param int $id ID
+     * @return Servico the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($codigo)
+    protected function findModel($id)
     {
-        if (($model = Pais::findOne(['codigo' => $codigo])) !== null) {
+        if (($model = Servico::findOne(['id' => $id])) !== null) {
             return $model;
         }
 

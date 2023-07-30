@@ -65,6 +65,14 @@ class SiteController extends Controller
         return $this->render('index');
     }
 
+    public function actionTeste()
+    {
+
+        $model = new FormularioDeRegistro();
+        $model->load(Yii::$app->request->post());
+        return $this->render('teste', ['model' => $model]);
+    }
+
     /**
      * Login action.
      *
@@ -140,6 +148,8 @@ class SiteController extends Controller
     public function actionRegistro()
     {
         $model = new FormularioDeRegistro();
+        // Se os dados forem recebidos via POST 
+        //e validados pelo model, a página será redirecionada para a página de confirmação
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             // dados válidos recebidos no $model
             return $this->render('confirmar-registro', ['model' => $model]);
