@@ -13,9 +13,11 @@ $this->params['breadcrumbs'][] = 'Update';
 <div class="servico-update">
 
     <h1><?= Html::encode($this->title) ?></h1>
+    <h3>Time Zone <?= date_default_timezone_get(); ?>  </h3>
 
     <?= $this->render('_form', [
         'model' => $model,
+        'action' => 'update',
     ]) ?>
 
 </div>

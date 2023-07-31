@@ -30,17 +30,11 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'comentarioSobreServico')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'dataSolicitacao')->textInput() ?>
-
-    <?= $form->field($model, 'dataAtendimento')->textInput() ?>
-
-    <?= $form->field($model, 'numProtocolo')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'deletedDate')->textInput() ?>
-
-    <?= $form->field($model, 'createdAt')->textInput() ?>
-
-    <?= $form->field($model, 'updatedAt')->textInput() ?>
+    // TODO: QUERO QUE ESSE CAMPO ETEJA DESABILITADO QUANDO O SCENARIO FOR CREATE
+    // TODO: ESTUDAR SOBRE SCENARIOS; ALTERAR O SCENARIO NO CONTROLLER PARA QUE QUANDO FOR UPDATE ELE HABILITE O CAMPO,
+    // ALÉM DISSO, QUANDO A RESPOSTA DESSE CAMPO FOR SIM, ELE DEVE SALVAR A DATA ATUAL NO CAMPO dataAtendimento
+    <?= $form->field($model, 'dataAtendimento')->label('Foi antendido?')
+        ->radioList(['1' => 'Sim', '0' => 'Não']); ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

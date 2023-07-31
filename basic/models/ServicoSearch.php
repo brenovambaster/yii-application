@@ -4,7 +4,6 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Servico;
 
 /**
  * ServicoSearch represents the model behind the search form of `app\models\Servico`.
@@ -61,7 +60,6 @@ class ServicoSearch extends Servico
             'id' => $this->id,
             'numeroCasa' => $this->numeroCasa,
             'dataSolicitacao' => $this->dataSolicitacao,
-
             'deletedDate' => $this->deletedDate,
             'updatedAt' => $this->updatedAt,
         ]);

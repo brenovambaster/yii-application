@@ -4,9 +4,9 @@ namespace app\controllers;
 
 use app\models\Servico;
 use app\models\ServicoSearch;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
  * ServicoController implements the CRUD actions for Servico model.
@@ -77,7 +77,7 @@ class ServicoController extends Controller
     public function actionCreate()
     {
         $model = new Servico();
-
+        $model->numProtocolo = Servico::generateProtocolNumber();
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
@@ -101,7 +101,7 @@ class ServicoController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
+        $model->updatedAt = date('Y-m-d H:i:s');
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }

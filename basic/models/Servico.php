@@ -2,7 +2,7 @@
 
 namespace app\models;
 
-use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "servico".
@@ -24,7 +24,7 @@ use Yii;
  * @property string $createdAt
  * @property string|null $updatedAt
  */
-class Servico extends \yii\db\ActiveRecord
+class Servico extends ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -34,14 +34,18 @@ class Servico extends \yii\db\ActiveRecord
         return 'servico';
     }
 
+    public static function generateProtocolNumber()
+    {
+        return date('YmdHis');
+    }
+
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-
-            [['logradouro', 'localidade', 'nomeLogradouro', 'numeroCasa', 'tipoServico', 'nomeCompleto', 'telefone', 'dataSolicitacao', 'numProtocolo', 'createdAt'], 'required'],
+            [['logradouro', 'localidade', 'nomeLogradouro', 'numeroCasa', 'tipoServico', 'nomeCompleto', 'telefone'], 'required'],
             [['numeroCasa'], 'integer'],
             [['dataSolicitacao', 'dataAtendimento', 'deletedDate', 'createdAt', 'updatedAt'], 'safe'],
             [['logradouro', 'localidade', 'nomeLogradouro', 'pontoReferencia', 'tipoServico', 'nomeCompleto', 'telefone', 'comentarioSobreServico'], 'string', 'max' => 255],

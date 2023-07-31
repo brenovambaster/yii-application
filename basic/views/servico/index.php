@@ -30,9 +30,25 @@ $this->params['breadcrumbs'][] = $this->title;
     echo Html::a('Limpar Filtros', ['index'], ['class' => ' m-2 btn btn-danger float-end']);
     ?>
 
-    <?= GridView::widget([
+
+    <?=
+    /**
+     * Displays a single Servico model.
+     * @param integer $id
+     * @return string
+     * @throws NotFoundHttpException if the model cannot be found
+     * @doc https://www.yiiframework.com/doc/api/2.0/yii-grid-gridview
+     */
+
+    GridView::widget([
+        'summary' => 'Mostrando <b>{begin}-{end}</b> de <b>{totalCount}</b> itens',
+        'summaryOptions' => ['class' => 'text fw-item'],
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'emptyText' => 'Nenhum registro encontrado',
+        'emptyTextOptions' => ['class' => 'text-danger fw-bold'],
+        'caption' => 'Lista de Serviços',
+
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             'numProtocolo',
