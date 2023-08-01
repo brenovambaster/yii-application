@@ -7,7 +7,7 @@ use  yii\base\Model;
 
 class FormularioDeRegistro extends Model
 {
-    private $SIZENAME = 30;
+    private $SIZENAME = 60;
     public $nome, $senha;
     public $e_mail;
     public  $data, $teste;

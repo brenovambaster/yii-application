@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\Servico;
 use app\models\ServicoSearch;
+use yii\actionsStandAlone\MinhaAcaoAction;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -31,6 +32,13 @@ class ServicoController extends Controller
         );
     }
 
+    public function actions()
+    {
+        return [
+            'error-conexao' => 'app\actionsStandAlone\MinhaAcaoAction',
+        ];
+    }
+
     /**
      * Lists all Servico models.
      *
@@ -42,11 +50,13 @@ class ServicoController extends Controller
         try {
             $dataProvider = $searchModel->search($this->request->queryParams);
         } catch (\Exception $e) {
-            return $this->render('../site/error', [
+
+            return $this->redirect(['error-conexao',
                 'name' => 'Erro',
                 'message' => $e->getMessage(),
                 'desc' => 'Falha na conexão com o banco de dados',
             ]);
+
         }
 
 
